@@ -50,6 +50,7 @@
 		0A9356AA18CDA08B007B1783 /* GmailTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GmailTests-Info.plist"; sourceTree = "<group>"; };
 		0A9356AC18CDA08B007B1783 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A9356AE18CDA08B007B1783 /* GmailTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GmailTests.m; sourceTree = "<group>"; };
+		0ACCB0F518CDA6D100FA365F /* Gmail.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gmail.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +116,7 @@
 		0A93568A18CDA08B007B1783 /* Gmail */ = {
 			isa = PBXGroup;
 			children = (
+				0ACCB0F518CDA6D100FA365F /* Gmail.entitlements */,
 				0A93569618CDA08B007B1783 /* KXGAppDelegate.h */,
 				0A93569718CDA08B007B1783 /* KXGAppDelegate.m */,
 				0A93569918CDA08B007B1783 /* MainMenu.xib */,
@@ -202,6 +204,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Kaiwen Xu";
 				TargetAttributes = {
+					0A93568018CDA08B007B1783 = {
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
 					0A9356A118CDA08B007B1783 = {
 						TestTargetID = 0A93568018CDA08B007B1783;
 					};
@@ -384,6 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gmail/Gmail-Prefix.pch";
@@ -397,6 +407,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gmail/Gmail-Prefix.pch";
@@ -465,6 +476,7 @@
 				0A9356B418CDA08B007B1783 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A9356B518CDA08B007B1783 /* Build configuration list for PBXNativeTarget "GmailTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +485,7 @@
 				0A9356B718CDA08B007B1783 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
