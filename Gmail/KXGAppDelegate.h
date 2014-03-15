@@ -7,9 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
+
+extern NSString *const GMAIL_URL;
 
 @interface KXGAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+
+@property (weak) IBOutlet WebView *mainWebView;
 
 @end

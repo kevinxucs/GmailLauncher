@@ -18,6 +18,7 @@
 		0A9356A518CDA08B007B1783 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A93568418CDA08B007B1783 /* Cocoa.framework */; };
 		0A9356AD18CDA08B007B1783 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A9356AB18CDA08B007B1783 /* InfoPlist.strings */; };
 		0A9356AF18CDA08B007B1783 /* GmailTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9356AE18CDA08B007B1783 /* GmailTests.m */; };
+		0AFD275A18D3DCF000F98103 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AFD275918D3DCF000F98103 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		0A9356AC18CDA08B007B1783 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A9356AE18CDA08B007B1783 /* GmailTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GmailTests.m; sourceTree = "<group>"; };
 		0ACCB0F518CDA6D100FA365F /* Gmail.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Gmail.entitlements; sourceTree = "<group>"; };
+		0AFD275918D3DCF000F98103 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AFD275A18D3DCF000F98103 /* WebKit.framework in Frameworks */,
 				0A93568518CDA08B007B1783 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +99,7 @@
 		0A93568318CDA08B007B1783 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0AFD275918D3DCF000F98103 /* WebKit.framework */,
 				0A93568418CDA08B007B1783 /* Cocoa.framework */,
 				0A9356A318CDA08B007B1783 /* XCTest.framework */,
 				0A93568618CDA08B007B1783 /* Other Frameworks */,
