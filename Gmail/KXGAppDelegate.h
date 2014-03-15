@@ -9,13 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
-extern NSString *const GMAIL_URL;
-extern NSString *const FRAME_AUTOSAVE;
+NSString *const GMAIL_URL;
+NSString *const FRAME_AUTOSAVE;
+NSString *const WEBVIEW_GROUP;
 
 @interface KXGAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 
-@property (weak) IBOutlet WebView *mainWebView;
+@property (nonatomic, retain) IBOutlet WebView *mainWebView;
 
 @end
