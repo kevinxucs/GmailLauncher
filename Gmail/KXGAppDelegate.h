@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 
 extern NSString *const GMAIL_URL;
+extern NSString *const FRAME_AUTOSAVE;
 
 @interface KXGAppDelegate : NSObject <NSApplicationDelegate>
 
