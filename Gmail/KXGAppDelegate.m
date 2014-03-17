@@ -28,12 +28,14 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
 - (void)awakeFromNib
 {
     [[self.window windowController] setShouldCascadeWindows:NO];
+    [self.window setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
     [self.window setDelegate:self];
     [self.window setFrameAutosaveName:FRAME_AUTOSAVE];
     [self.window setContentView:self.mainWebView];
     
     [self.mainWebView setGroupName:WEBVIEW_GROUP];
     [self.mainWebView setUIDelegate:self];
+    [self.mainWebView setPolicyDelegate:self];
     [self.mainWebView setFrameLoadDelegate:self];
     [[self.mainWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:GMAIL_URL]]];
 }
@@ -59,26 +61,22 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
 
 - (BOOL)windowShouldClose:(id)sender
 {
-//    [[NSApplication sharedApplication] hide:self];
     [self.window orderOut:self];
     return NO;
 }
 
-// WebUIDelegate
+// WebPolicyDelegate
 
-//- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
-//{
-//    id aDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:nil];
-//    [[[aDocument webView] mainFrame] loadRequest:request];
-//    return [aDocument webView];
-//}
-//
-//- (void)webViewShow:(WebView *)sender
-//{
-//    id aDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
-//    
-//    [aDocument showWindows];
-//}
+- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
+{
+    NSLog(@"decidePolicyForNavigationAction: %@", [[request URL] absoluteString]);
+    [listener use];
+}
+
+- (void)webView:(WebView *)webView decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id < WebPolicyDecisionListener >)listener
+{
+    NSLog(@"decidePolicyForNewWindowAction");
+}
 
 // WebFrameLoadDelegate
 
