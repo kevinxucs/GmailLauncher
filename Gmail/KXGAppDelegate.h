@@ -8,12 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "KXGWebViewNewWindowHandler.h"
 
 @interface KXGAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 
-@property (nonatomic, retain) IBOutlet WebView *mainWebView;
+@property (weak) IBOutlet WebView *mainWebView;
+
+@property (strong) KXGWebViewNewWindowHandler *windowHanlder;
 
 - (IBAction)showGmailHelp:(id)sender;
 

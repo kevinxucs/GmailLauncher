@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A90D22E18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A90D22D18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m */; };
 		0A93568518CDA08B007B1783 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A93568418CDA08B007B1783 /* Cocoa.framework */; };
 		0A93568F18CDA08B007B1783 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A93568D18CDA08B007B1783 /* InfoPlist.strings */; };
 		0A93569118CDA08B007B1783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A93569018CDA08B007B1783 /* main.m */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A90D22C18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXGWebViewNewWindowHandler.h; sourceTree = "<group>"; };
+		0A90D22D18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KXGWebViewNewWindowHandler.m; sourceTree = "<group>"; };
 		0A93568118CDA08B007B1783 /* Gmail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gmail.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A93568418CDA08B007B1783 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A93568718CDA08B007B1783 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 				0ACCB0F518CDA6D100FA365F /* Gmail.entitlements */,
 				0A93569618CDA08B007B1783 /* KXGAppDelegate.h */,
 				0A93569718CDA08B007B1783 /* KXGAppDelegate.m */,
+				0A90D22C18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.h */,
+				0A90D22D18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m */,
 				0A93569918CDA08B007B1783 /* MainMenu.xib */,
 				0A93569C18CDA08B007B1783 /* Images.xcassets */,
 				0A93568B18CDA08B007B1783 /* Supporting Files */,
@@ -267,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A93569118CDA08B007B1783 /* main.m in Sources */,
+				0A90D22E18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m in Sources */,
 				0A93569818CDA08B007B1783 /* KXGAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,6 +24,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.windowHanlder = [[KXGWebViewNewWindowHandler alloc] init];
 }
 
 - (void)awakeFromNib
@@ -53,13 +54,11 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (void)openURL:(NSURL *)URL
 {
-    NSLog(@"Opening URL: %@", [URL absoluteString]);
     [[NSWorkspace sharedWorkspace]openURL:URL];
 }
 
 - (void)openURLString:(NSString *)URLString
 {
-    NSLog(@"Opening URL: %@", URLString);
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
 }
 
@@ -88,7 +87,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
     if (actionKey == WebNavigationTypeLinkClicked) {
         NSLog(@"decidePolicyForNavigationAction (clicked): %@", [[request URL] absoluteString]);
     } else if (actionKey == WebNavigationTypeOther) {
-        NSLog(@"decidePolicyForNavigationAction (other): %@", [[request URL] absoluteString]);
+//        NSLog(@"decidePolicyForNavigationAction (other): %@", [[request URL] absoluteString]);
     } else {
         NSLog(@"decidePolicyForNavigationAction: %@", [[request URL] absoluteString]);
     }
@@ -106,8 +105,9 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
 {
-//    return sender;
-    return nil;
+    NSLog(@"createWebViewWithRequest");
+
+    return [self.windowHanlder webView];
 }
 
 @end
