@@ -17,7 +17,7 @@
 
 + (void)openURLString:(NSString *)URLString
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
+    [self openURL:[NSURL URLWithString:URLString]];
 }
 
 
