@@ -11,11 +11,12 @@
 NSString *const GMAIL_URL = @"https://mail.google.com/";
 NSString *const GMAIL_HELP_URL = @"https://support.google.com/mail/";
 NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
-NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
 
 @interface KXGAppDelegate()
 
-- (void)openURL:(NSString *)URLString;
+- (void)openURL:(NSURL *)URL;
+
+- (void)openURLString:(NSString *)URLString;
 
 @end
 
@@ -33,10 +34,9 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
     [self.window setFrameAutosaveName:FRAME_AUTOSAVE];
     [self.window setContentView:self.mainWebView];
     
-    [self.mainWebView setGroupName:WEBVIEW_GROUP];
-    [self.mainWebView setUIDelegate:self];
-    [self.mainWebView setPolicyDelegate:self];
     [self.mainWebView setFrameLoadDelegate:self];
+    [self.mainWebView setPolicyDelegate:self];
+    [self.mainWebView setUIDelegate:self];
     [[self.mainWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:GMAIL_URL]]];
 }
 
@@ -48,10 +48,16 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
 
 - (IBAction)showGmailHelp:(id)sender
 {
-    [self openURL:GMAIL_HELP_URL];
+    [self openURLString:GMAIL_HELP_URL];
 }
 
-- (void)openURL:(NSString *)URLString
+- (void)openURL:(NSURL *)URL
+{
+    NSLog(@"Opening URL: %@", [URL absoluteString]);
+    [[NSWorkspace sharedWorkspace]openURL:URL];
+}
+
+- (void)openURLString:(NSString *)URLString
 {
     NSLog(@"Opening URL: %@", URLString);
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
@@ -65,19 +71,6 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
     return NO;
 }
 
-// WebPolicyDelegate
-
-- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
-{
-    NSLog(@"decidePolicyForNavigationAction: %@", [[request URL] absoluteString]);
-    [listener use];
-}
-
-- (void)webView:(WebView *)webView decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id < WebPolicyDecisionListener >)listener
-{
-    NSLog(@"decidePolicyForNewWindowAction");
-}
-
 // WebFrameLoadDelegate
 
 - (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
@@ -85,6 +78,36 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
     if (frame == [self.mainWebView mainFrame]) {
         [self.window setTitle:title];
     }
+}
+
+// WebPolicyDelegate
+
+- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
+{
+    int actionKey = [[actionInformation objectForKey:WebActionNavigationTypeKey] intValue];
+    if (actionKey == WebNavigationTypeLinkClicked) {
+        NSLog(@"decidePolicyForNavigationAction (clicked): %@", [[request URL] absoluteString]);
+    } else if (actionKey == WebNavigationTypeOther) {
+        NSLog(@"decidePolicyForNavigationAction (other): %@", [[request URL] absoluteString]);
+    } else {
+        NSLog(@"decidePolicyForNavigationAction: %@", [[request URL] absoluteString]);
+    }
+    [listener use];
+}
+
+- (void)webView:(WebView *)webView decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id < WebPolicyDecisionListener >)listener
+{
+    NSLog(@"decidePolicyForNewWindowAction: %@", [[request URL] absoluteString]);
+    [self openURL:[request URL]];
+    [listener ignore];
+}
+
+// WebUIDelegate
+
+- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
+{
+//    return sender;
+    return nil;
 }
 
 @end
