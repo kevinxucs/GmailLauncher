@@ -110,4 +110,31 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
     return [self.windowHanlder webView];
 }
 
+- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles
+{
+    NSOpenPanel *openDialog = [NSOpenPanel openPanel];
+
+    [openDialog setCanChooseFiles:YES];
+    [openDialog setCanChooseDirectories:NO];
+    [openDialog setAllowsMultipleSelection:allowMultipleFiles];
+
+    [openDialog beginSheetModalForWindow:self.window completionHandler:^(NSInteger result)
+     {
+         if (result == NSFileHandlingPanelOKButton) {
+             NSArray *files = [openDialog URLs];
+             NSMutableArray *fileURLStrings = [NSMutableArray arrayWithCapacity:[files count]];
+
+             for (id fileURL in files) {
+                 NSString *fileURLString = [fileURL path];
+                 NSLog(@"Uploading file: %@", fileURLString);
+
+                 [fileURLStrings addObject:fileURLString];
+             }
+             [resultListener chooseFilenames:fileURLStrings];
+         } else if (result == NSFileHandlingPanelCancelButton) {
+             [resultListener cancel];
+         }
+     }];
+}
+
 @end
