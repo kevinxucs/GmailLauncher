@@ -21,6 +21,7 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
 - (void)awakeFromNib
 {
     [[self.window windowController] setShouldCascadeWindows:NO];
+    [self.window setDelegate:self];
     [self.window setFrameAutosaveName:FRAME_AUTOSAVE];
     [self.window setContentView:self.mainWebView];
     
@@ -28,6 +29,21 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
     [self.mainWebView setUIDelegate:self];
     [self.mainWebView setFrameLoadDelegate:self];
     [[self.mainWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:GMAIL_URL]]];
+}
+
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
+{
+    [self.window makeKeyAndOrderFront:self];
+    return NO;
+}
+
+// NSWindowDelegate
+
+- (BOOL)windowShouldClose:(id)sender
+{
+//    [[NSApplication sharedApplication] hide:self];
+    [self.window orderOut:self];
+    return NO;
 }
 
 // WebUIDelegate

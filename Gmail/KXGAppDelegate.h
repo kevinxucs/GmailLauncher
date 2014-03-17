@@ -13,7 +13,7 @@ NSString *const GMAIL_URL;
 NSString *const FRAME_AUTOSAVE;
 NSString *const WEBVIEW_GROUP;
 
-@interface KXGAppDelegate : NSObject <NSApplicationDelegate>
+@interface KXGAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 
