@@ -66,8 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AFD275A18D3DCF000F98103 /* WebKit.framework in Frameworks */,
 				0A93568518CDA08B007B1783 /* Cocoa.framework in Frameworks */,
+				0AFD275A18D3DCF000F98103 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,8 +105,8 @@
 		0A93568318CDA08B007B1783 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0AFD275918D3DCF000F98103 /* WebKit.framework */,
 				0A93568418CDA08B007B1783 /* Cocoa.framework */,
+				0AFD275918D3DCF000F98103 /* WebKit.framework */,
 				0A9356A318CDA08B007B1783 /* XCTest.framework */,
 				0A93568618CDA08B007B1783 /* Other Frameworks */,
 			);

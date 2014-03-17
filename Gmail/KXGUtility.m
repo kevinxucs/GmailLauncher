@@ -12,7 +12,7 @@
 
 + (void)openURL:(NSURL *)URL
 {
-    [[NSWorkspace sharedWorkspace]openURL:URL];
+    [[NSWorkspace sharedWorkspace] openURL:URL];
 }
 
 + (void)openURLString:(NSString *)URLString

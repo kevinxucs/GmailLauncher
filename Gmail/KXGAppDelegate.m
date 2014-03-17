@@ -93,16 +93,16 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles
 {
-    NSOpenPanel *openDialog = [NSOpenPanel openPanel];
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 
-    [openDialog setCanChooseFiles:YES];
-    [openDialog setCanChooseDirectories:NO];
-    [openDialog setAllowsMultipleSelection:allowMultipleFiles];
+    [openPanel setCanChooseFiles:YES];
+    [openPanel setCanChooseDirectories:NO];
+    [openPanel setAllowsMultipleSelection:allowMultipleFiles];
 
-    [openDialog beginSheetModalForWindow:self.window completionHandler:^(NSInteger result)
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result)
      {
          if (result == NSFileHandlingPanelOKButton) {
-             NSArray *files = [openDialog URLs];
+             NSArray *files = [openPanel URLs];
              NSMutableArray *fileURLStrings = [NSMutableArray arrayWithCapacity:[files count]];
 
              for (id fileURL in files) {
