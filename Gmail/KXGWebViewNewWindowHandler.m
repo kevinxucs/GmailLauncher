@@ -38,7 +38,7 @@
         // Handling external link
         NSLog(@"External");
 
-        [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+        [KXGUtility openURL:[request URL]];
     }
 
     [listener ignore];
@@ -53,7 +53,7 @@
         [listener use];
     } else {
         // Handling external link
-        [[NSWorkspace sharedWorkspace] openURL:[request URL]];
+        [KXGUtility openURL:[request URL]];
         [listener ignore];
     }
 }

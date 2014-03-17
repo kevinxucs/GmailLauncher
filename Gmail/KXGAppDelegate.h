@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "KXGUtility.h"
 #import "KXGWebViewNewWindowHandler.h"
 
 @interface KXGAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>

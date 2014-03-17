@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import "KXGUtility.h"
 
 @interface KXGWebViewNewWindowHandler : NSObject
 
