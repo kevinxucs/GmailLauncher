@@ -9,8 +9,15 @@
 #import "KXGAppDelegate.h"
 
 NSString *const GMAIL_URL = @"https://mail.google.com/";
+NSString *const GMAIL_HELP_URL = @"https://support.google.com/mail/";
 NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
+
+@interface KXGAppDelegate()
+
+- (void)openURL:(NSString *)URLString;
+
+@end
 
 @implementation KXGAppDelegate
 
@@ -35,6 +42,17 @@ NSString *const WEBVIEW_GROUP = @"gmail_webview_group";
 {
     [self.window makeKeyAndOrderFront:self];
     return NO;
+}
+
+- (IBAction)showGmailHelp:(id)sender
+{
+    [self openURL:GMAIL_HELP_URL];
+}
+
+- (void)openURL:(NSString *)URLString
+{
+    NSLog(@"Opening URL: %@", URLString);
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
 }
 
 // NSWindowDelegate
