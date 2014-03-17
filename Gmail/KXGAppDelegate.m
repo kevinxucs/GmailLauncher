@@ -18,20 +18,18 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.windowHanlder = [[KXGWebViewNewWindowHandler alloc] init];
-}
 
-- (void)awakeFromNib
-{
     [[self.window windowController] setShouldCascadeWindows:NO];
     [self.window setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
     [self.window setDelegate:self];
     [self.window setFrameAutosaveName:FRAME_AUTOSAVE];
     [self.window setContentView:self.mainWebView];
-    
+
     [self.mainWebView setFrameLoadDelegate:self];
     [self.mainWebView setPolicyDelegate:self];
     [self.mainWebView setUIDelegate:self];
     [[self.mainWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:GMAIL_URL]]];
+
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
