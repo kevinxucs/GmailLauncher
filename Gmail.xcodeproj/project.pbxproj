@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A625F0C18D7CCCF0030A527 /* KXGWebDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A625F0B18D7CCCF0030A527 /* KXGWebDownloadController.m */; };
 		0A90D22E18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A90D22D18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m */; };
 		0A90D23418D7AB7B0078F5C3 /* KXGUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A90D23318D7AB7B0078F5C3 /* KXGUtility.m */; };
 		0A93568518CDA08B007B1783 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A93568418CDA08B007B1783 /* Cocoa.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A625F0A18D7CCCF0030A527 /* KXGWebDownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXGWebDownloadController.h; sourceTree = "<group>"; };
+		0A625F0B18D7CCCF0030A527 /* KXGWebDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KXGWebDownloadController.m; sourceTree = "<group>"; };
 		0A90D22C18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXGWebViewNewWindowHandler.h; sourceTree = "<group>"; };
 		0A90D22D18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KXGWebViewNewWindowHandler.m; sourceTree = "<group>"; };
 		0A90D23218D7AB7B0078F5C3 /* KXGUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXGUtility.h; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 				0A93569718CDA08B007B1783 /* KXGAppDelegate.m */,
 				0A90D23218D7AB7B0078F5C3 /* KXGUtility.h */,
 				0A90D23318D7AB7B0078F5C3 /* KXGUtility.m */,
+				0A625F0A18D7CCCF0030A527 /* KXGWebDownloadController.h */,
+				0A625F0B18D7CCCF0030A527 /* KXGWebDownloadController.m */,
 				0A90D22C18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.h */,
 				0A90D22D18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m */,
 				0A93569918CDA08B007B1783 /* MainMenu.xib */,
@@ -280,6 +285,7 @@
 				0A90D23418D7AB7B0078F5C3 /* KXGUtility.m in Sources */,
 				0A90D22E18D6CC070078F5C3 /* KXGWebViewNewWindowHandler.m in Sources */,
 				0A93569818CDA08B007B1783 /* KXGAppDelegate.m in Sources */,
+				0A625F0C18D7CCCF0030A527 /* KXGWebDownloadController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

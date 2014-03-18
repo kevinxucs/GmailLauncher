@@ -11,8 +11,10 @@
 #import "KXGUtility.h"
 
 @interface KXGWebViewNewWindowHandler : NSObject
-
-@property (atomic, strong) WebView *dummyWebView;
+{
+    @private
+    WebView *dummyWebView;
+}
 
 - (WebView *)webView;
 

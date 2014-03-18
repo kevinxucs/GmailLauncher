@@ -17,7 +17,8 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.windowHanlder = [[KXGWebViewNewWindowHandler alloc] init];
+    windowHanlder = [[KXGWebViewNewWindowHandler alloc] init];
+    downloadController = [[KXGWebDownloadController alloc] initWithWindow:self.window];
 
     [[self.window windowController] setShouldCascadeWindows:NO];
     [self.window setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
@@ -25,6 +26,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
     [self.window setFrameAutosaveName:FRAME_AUTOSAVE];
     [self.window setContentView:self.mainWebView];
 
+    [self.mainWebView setDownloadDelegate:downloadController];
     [self.mainWebView setFrameLoadDelegate:self];
     [self.mainWebView setPolicyDelegate:self];
     [self.mainWebView setUIDelegate:self];
@@ -47,7 +49,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (BOOL)windowShouldClose:(id)sender
 {
-    [self.window orderOut:self];
+    [sender orderOut:self];
     return NO;
 }
 
@@ -55,12 +57,25 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
 {
-    if (frame == [self.mainWebView mainFrame]) {
-        [self.window setTitle:title];
+    if (frame == [sender mainFrame]) {
+        [[sender window] setTitle:title];
     }
 }
 
 // WebPolicyDelegate
+
+- (void)webView:(WebView *)webView decidePolicyForMIMEType:(NSString *)type request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
+{
+    NSLog(@"decidePolicyForMIMEType (%@): %@", type, [[request URL] absoluteString]);
+
+#warning TODO: Implement method to determine which MIME types should be downloaded
+    if ([type isEqualToString:@"application/pdf"]) {
+        [listener download];
+        return;
+    }
+
+    [listener use];
+}
 
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
 {
@@ -88,7 +103,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 {
     NSLog(@"createWebViewWithRequest");
 
-    return [self.windowHanlder webView];
+    return [windowHanlder webView];
 }
 
 - (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles
@@ -99,7 +114,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
     [openPanel setCanChooseDirectories:NO];
     [openPanel setAllowsMultipleSelection:allowMultipleFiles];
 
-    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result)
+    [openPanel beginSheetModalForWindow:[sender window] completionHandler:^(NSInteger result)
      {
          if (result == NSFileHandlingPanelOKButton) {
              NSArray *files = [openPanel URLs];

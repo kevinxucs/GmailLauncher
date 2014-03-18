@@ -14,15 +14,15 @@
 {
     self = [super init];
     if (self != nil) {
-        self.dummyWebView = [[WebView alloc] init];
-        [self.dummyWebView setPolicyDelegate:self];
+        dummyWebView = [[WebView alloc] init];
+        [dummyWebView setPolicyDelegate:self];
     }
     return self;
 }
 
 - (WebView *)webView
 {
-    return self.dummyWebView;
+    return dummyWebView;
 }
 
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener

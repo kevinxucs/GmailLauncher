@@ -10,14 +10,18 @@
 #import <WebKit/WebKit.h>
 #import "KXGUtility.h"
 #import "KXGWebViewNewWindowHandler.h"
+#import "KXGWebDownloadController.h"
 
 @interface KXGAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
+{
+    @private
+    KXGWebViewNewWindowHandler *windowHanlder;
+    KXGWebDownloadController *downloadController;
+}
 
 @property (assign) IBOutlet NSWindow *window;
 
-@property (weak) IBOutlet WebView *mainWebView;
-
-@property (strong) KXGWebViewNewWindowHandler *windowHanlder;
+@property (assign) IBOutlet WebView *mainWebView;
 
 - (IBAction)showGmailHelp:(id)sender;
 
