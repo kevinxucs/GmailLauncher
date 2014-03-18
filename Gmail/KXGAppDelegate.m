@@ -13,6 +13,12 @@ NSString *const GMAIL_HELP_URL = @"https://support.google.com/mail/";
 NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 
+@interface KXGAppDelegate()
+
+- (void)augmentUserAgentForWebView:(WebView *)webView;
+
+@end
+
 @implementation KXGAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -25,6 +31,9 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
     [self.window setDelegate:self];
     [self.window setFrameAutosaveName:FRAME_AUTOSAVE];
     [self.window setContentView:self.mainWebView];
+
+    // Augment UserAgent to workaround drag and drop in Gamil
+    [self augmentUserAgentForWebView:self.mainWebView];
 
     [self.mainWebView setDownloadDelegate:downloadController];
     [self.mainWebView setFrameLoadDelegate:self];
@@ -43,6 +52,32 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 - (IBAction)showGmailHelp:(id)sender
 {
     [KXGUtility openURLString:GMAIL_HELP_URL];
+}
+
+- (void)augmentUserAgentForWebView:(WebView *)webView
+{
+    // For original user agent:
+    // Mozilla/x.x (Macintosh; Intel Mac OS X 10_x_x) AppleWebKit/xxx.xx.x (KHTML, like Gecko)
+    // augment following string at the end
+    // Safari/xxx.xx.x
+
+    NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    NSMutableString *userAgentAugmented = [userAgent mutableCopy];
+
+    NSRange versionRange = [userAgent rangeOfString:@"AppleWebKit/"];
+
+    if (versionRange.length > 0) {
+        NSUInteger versionNumberStartIndex = versionRange.location + versionRange.length;
+        NSRange versionNumberSearchRange = NSMakeRange(versionNumberStartIndex, [userAgent length] - versionNumberStartIndex);
+        NSRange versionNumberRange = [userAgent rangeOfString:@" " options:0 range:versionNumberSearchRange];
+        NSUInteger versionNumberEndIndex = versionNumberRange.location;
+
+        NSString *versionNumberString = [userAgent substringWithRange:NSMakeRange(versionNumberStartIndex, versionNumberEndIndex - versionNumberStartIndex + 1)];
+        [userAgentAugmented appendString:@" Safari/"];
+        [userAgentAugmented appendString:versionNumberString];
+
+        [webView setCustomUserAgent:userAgentAugmented];
+    }
 }
 
 // NSWindowDelegate
