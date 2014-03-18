@@ -23,11 +23,13 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    NSLog(@"collectionBehavior: %lu", (unsigned long)[self.window collectionBehavior]);
+
     windowHanlder = [[KXGWebViewNewWindowHandler alloc] init];
     downloadController = [[KXGWebDownloadController alloc] initWithWindow:self.window];
 
     [[self.window windowController] setShouldCascadeWindows:NO];
-    [self.window setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
+    //[self.window setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace|NSWindowCollectionBehaviorFullScreenPrimary];
     [self.window setDelegate:self];
     [self.window setFrameAutosaveName:FRAME_AUTOSAVE];
     [self.window setContentView:self.mainWebView];
@@ -45,7 +47,15 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
 {
+    // OrderFront must called before setCollectionBehavior
     [self.window makeKeyAndOrderFront:self];
+
+    NSWindowCollectionBehavior windowCollectionBehavior = [self.window collectionBehavior];
+    // Unset NSWindowCollectionBehaviorMoveToActiveSpace if set
+    if (windowCollectionBehavior&NSWindowCollectionBehaviorMoveToActiveSpace) {
+        [self.window setCollectionBehavior:windowCollectionBehavior^NSWindowCollectionBehaviorMoveToActiveSpace];
+    }
+
     return NO;
 }
 
@@ -85,6 +95,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 - (BOOL)windowShouldClose:(id)sender
 {
     [sender orderOut:self];
+    [sender setCollectionBehavior:[sender collectionBehavior]|NSWindowCollectionBehaviorMoveToActiveSpace];
     return NO;
 }
 
