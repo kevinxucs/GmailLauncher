@@ -47,7 +47,9 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
 {
-    // OrderFront must called before setCollectionBehavior
+    NSLog(@"applicationShouldHandleReopen");
+
+    // orderFront must called before setCollectionBehavior
     [self.window makeKeyAndOrderFront:self];
 
     NSWindowCollectionBehavior windowCollectionBehavior = [self.window collectionBehavior];
@@ -94,8 +96,12 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (BOOL)windowShouldClose:(id)sender
 {
-    [sender orderOut:self];
+    NSLog(@"windowShouldClose");
+
     [sender setCollectionBehavior:[sender collectionBehavior]|NSWindowCollectionBehaviorMoveToActiveSpace];
+
+    // orderOut must be called after setCollectionBahavior
+    [sender orderOut:self];
     return NO;
 }
 
