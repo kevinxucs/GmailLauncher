@@ -101,15 +101,17 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
 - (void)webView:(WebView *)webView decidePolicyForMIMEType:(NSString *)type request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
 {
+    BOOL canShow = [WebView canShowMIMEType:type];
+
     NSLog(@"decidePolicyForMIMEType (%@): %@", type, [[request URL] absoluteString]);
+    NSLog(@"WebView canShowMIMEType: %@", canShow ? @"YES" : @"NO");
 
-#warning TODO: Implement method to determine which MIME types should be downloaded
-    if ([type isEqualToString:@"application/pdf"]) {
+#warning TODO: MIME type code needs further testing
+    if (!canShow || ![type isEqualTo:@"text/html"]) {
         [listener download];
-        return;
+    } else {
+        [listener use];
     }
-
-    [listener use];
 }
 
 - (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id < WebPolicyDecisionListener >)listener
