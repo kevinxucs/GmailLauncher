@@ -59,37 +59,36 @@
         [savePanel setNameFieldStringValue:filename];
     }
 
-    NSInteger result = [savePanel runModal];
-    if (result == NSFileHandlingPanelOKButton) {
-        // The user has chosen to download the file. We specify the download file's location on disk according to the
-        // user's selected save location.
-        [download setDestination:[[savePanel URL] path] allowOverwrite:YES];
-    } else {
-        // The user has chosen to cancel the download while choosing a file location. We cancel the download and clean
-        // up the WebDownloadView we allocated to display its progress.
-        [download cancel];
-    }
+    // Hack for making beginSheetModalForWindow wait,
+    // otherwise downlaod:decideDestinationWithSuggestedFilename: will return
+    // without setting a destination.
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    [savePanel beginSheetModalForWindow:mainWindow completionHandler:^(NSInteger result)
+     {
+         if (result == NSFileHandlingPanelOKButton) {
+             NSString *destinationPath = [[savePanel URL] path];
+             NSLog(@"Download destination: %@", destinationPath);
 
-//    [savePanel beginSheetModalForWindow:mainWindow completionHandler:^(NSInteger result)
-//     {
-//         if (result == NSFileHandlingPanelOKButton) {
-//             NSString *destinationPath = [[savePanel URL] path];
-//             NSLog(@"Download destination: %@", destinationPath);
-//
-//             // The user has chosen to download the file. We specify the download
-//             // file's location on disk according to the user's selected save
-//             // location.
-//             [download setDestination:destinationPath allowOverwrite:YES];
-//         } else if (result == NSFileHandlingPanelCancelButton) {
-//             NSLog(@"Download cancelled");
-//
-//             // The user has chosen to cancel the download while choosing a file
-//             // location. We cancel the download and clean up the WebDownloadView
-//             // we allocated to display its progress.
-//             [download cancel];
-//             [self endDownload:download];
-//         }
-//     }];
+             // The user has chosen to download the file. We specify the download
+             // file's location on disk according to the user's selected save
+             // location.
+             [download setDestination:destinationPath allowOverwrite:YES];
+         } else if (result == NSFileHandlingPanelCancelButton) {
+             NSLog(@"Download cancelled");
+
+             // The user has chosen to cancel the download while choosing a file
+             // location. We cancel the download and clean up the WebDownloadView
+             // we allocated to display its progress.
+             [download cancel];
+             // [self endDownload:download];
+         }
+
+         dispatch_semaphore_signal(sema);
+     }];
+#warning FIXME: potential unwanted blocking
+    while (dispatch_semaphore_wait(sema, DISPATCH_TIME_NOW)) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+    }
 }
 
 @end
