@@ -58,7 +58,7 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
         [self.window setCollectionBehavior:windowCollectionBehavior^NSWindowCollectionBehaviorMoveToActiveSpace];
     }
 
-    return NO;
+    return YES;
 }
 
 - (IBAction)showGmailHelp:(id)sender
@@ -102,7 +102,8 @@ NSString *const FRAME_AUTOSAVE = @"gmail_frame_autosave";
 
     // orderOut must be called after setCollectionBahavior
     [sender orderOut:self];
-    return NO;
+
+    return YES;
 }
 
 // WebFrameLoadDelegate
